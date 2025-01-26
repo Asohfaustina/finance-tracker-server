@@ -77,7 +77,7 @@ export default class App {
 	}
 
 	private async sync() {
-		await this.sequelize.sync({ alter: this.isDevelopment });
+		await this.sequelize.sync({ alter: false});
 		if (this.isDevelopment) {
 			console.log("Connection synced successfully");
 		}
