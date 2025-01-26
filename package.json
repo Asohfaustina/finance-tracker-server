@@ -4,8 +4,9 @@
 	"description": "server for finance tracker app",
 	"main": "index.js",
 	"scripts": {
-		"build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-		"start": "npm run build && ts-node -r tsconfig-paths/register build/bin/server.js",
+		"clean": "rimraf ./build",
+		"build": "npm run clean && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+		"start": "node build/bin/server.js",
 		"dev": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --rs ./bin/server.ts"
 	},
 	"keywords": [

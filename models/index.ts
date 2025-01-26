@@ -4,7 +4,7 @@ import envConfig from "@/config";
 envConfig()
  
 
-const configModule = require(__dirname + "/../config/db.config.ts");
+const configModule = require(__dirname + "/../config/db.config");
 
 const config = configModule.default[variables.NODE_ENV];
 
