@@ -25,7 +25,7 @@ export class SavingsHistoryController {
 	public getAllSavingsHistory = async (req: _Request, res: Response) => {
 		const validation = z
 			.object({
-				savingsId: z.string(),
+				savingsId: z.string().optional(),
 			})
 			.merge(zodPaginationQuery);
 
