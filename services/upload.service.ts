@@ -19,7 +19,9 @@ export class UploadService {
 	public async createUpload(userId: string, upload: NewUpload): Promise<Upload> {
 		const fileData = this.verifyFile(upload.fileData);
 
-		const response = await cloudinaryConfig.uploader.upload(fileData);
+		const response = await cloudinaryConfig.uploader.upload(fileData, {
+			folder: "finance-tracker",
+		});
 
 		const uploaded = await this.uploadDal.createUpload({
 			name: response.public_id,

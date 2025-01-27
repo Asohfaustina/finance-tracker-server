@@ -7,9 +7,10 @@ export interface UploadAttributes {
 	mimetype: string;
 	size: number;
 	userId: string;
+	avatar_id?:string
 }
 
-export interface UploadCreationAttributes extends Optional<UploadAttributes, "_id"> {}
+export interface UploadCreationAttributes extends Optional<UploadAttributes, "_id"|"avatar_id"> {}
 
 export interface UploadInstance
 	extends Model<UploadAttributes, UploadCreationAttributes>,

@@ -14,7 +14,7 @@ export class UploadDal extends BaseDAL<Upload, UploadInstance> {
 	}
 
 	public async createUpload(uploadData: UploadCreationAttributes): Promise<Upload | null> {
-		const uploaded = await this.Upload.create(uploadData);
+		const uploaded = await this.Upload.create({...uploadData, avatar_id: uploadData.userId});
 		return this.sanitize(uploaded);
 	}
 

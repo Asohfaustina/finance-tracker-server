@@ -7,13 +7,18 @@ import { UserModel } from "@/models/user.model";
 import { User } from "@/types/user.types";
 import { ModelStatic } from "sequelize";
 import BaseDAL from ".";
+import { UploadInstance } from "@/interfaces/upload.interface";
+import { UploadModel } from "@/models/upload.model";
 
 export class UserDAL extends BaseDAL<User, UserInstance> {
 	private User: ModelStatic<UserInstance>;
+	private Uploads: ModelStatic<UploadInstance>;
+
 
 	constructor() {
 		super();
 		this.User = UserModel;
+		this.Uploads = UploadModel
 	}
 
 	/**
@@ -36,7 +41,7 @@ export class UserDAL extends BaseDAL<User, UserInstance> {
 	 */
 	async findUserById(id: string): Promise<User | null> {
 		const user = await this.User.findByPk(id, {
-			include: [{ association: "avatar" }],
+			include: [{ model:this.Uploads , as: "avatar" }],
 		});
 		return this.sanitize(user);
 	}
