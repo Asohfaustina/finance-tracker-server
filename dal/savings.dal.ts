@@ -11,15 +11,19 @@ import ServerError from "@/lib/server-error";
 import httpStatus from "http-status";
 import { paginate } from "@/lib/paginate";
 import { Pagination } from "@/global.types";
+import { SavingHistoryInstance } from "@/interfaces/savings-history.interface";
+import { SavingsHistoryModel } from "@/models/savings-history.model";
 
 export class SavingsDal extends BaseDAL<Savings, SavingsInstance> {
 	private Savings: ModelStatic<SavingsInstance>;
+	private SavingsHistory: ModelStatic<SavingHistoryInstance>;
 
 	private max_savings_count: number;
 
 	constructor() {
 		super();
 		this.Savings = SavingsModel;
+		this.SavingsHistory = SavingsHistoryModel;
 
 		this.max_savings_count = 5;
 	}
@@ -113,7 +117,15 @@ export class SavingsDal extends BaseDAL<Savings, SavingsInstance> {
 				if (savingsToMergeWith) {
 					savingsToMergeWith.update({
 						...savingsToMergeWith,
-						amount: savingsToMergeWith.amount + copiedSavings?.amount,
+						amount: Math.floor(savingsToMergeWith.amount + copiedSavings?.amount),
+					});
+
+					await this.SavingsHistory.create({
+						amount: copiedSavings.amount,
+						currency: copiedSavings.currency,
+						savingsId: savingsToMergeWith._id,
+						amountBeforePayment: Math.floor(savingsToMergeWith.amount - copiedSavings?.amount),
+						amountAfterPayment: Math.floor(savingsToMergeWith.amount + copiedSavings?.amount),
 					});
 				}
 			}
