@@ -1,5 +1,6 @@
 import { Request } from "express";
 import { z } from "zod";
+import ILogger from "./interfaces/logger.interface";
 
 export type _Request = Request & {
 	user?: any;
@@ -23,6 +24,7 @@ export type AppInstanceOptions = {
 	whitelist: string[];
 	port: number;
 	dataLimit: string;
+	logger: ILogger;
 };
 
 export type PaginationFilters = {

@@ -17,7 +17,7 @@ export default async function verifyToken(req: _Request, _res: Response, next: N
 		const token = auth_header && auth_header.split(" ")[1];
 		if (!token) throw new Error("Unauthorized/malformed token");
 		const session = await sessionService.confirmSession(token);
-		if (!session) throw new Error("Unauthorized");
+		if (!session) throw new Error("Unauthorized!");
 
 		req.user = session.jwt;
 		req.session = session.session;
