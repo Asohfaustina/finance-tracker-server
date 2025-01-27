@@ -125,7 +125,7 @@ export class SavingsDal extends BaseDAL<Savings, SavingsInstance> {
 						currency: copiedSavings.currency,
 						savingsId: savingsToMergeWith._id,
 						amountBeforePayment: Math.floor(savingsToMergeWith.amount - copiedSavings?.amount),
-						amountAfterPayment: Math.floor(savingsToMergeWith.amount + copiedSavings?.amount),
+						amountAfterPayment: Math.floor(savingsToMergeWith.amount),
 					});
 				}
 			}
