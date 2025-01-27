@@ -107,8 +107,8 @@ export class ExpenseDal extends BaseDAL<Expense, ExpenseInstance> {
 		return !!deleted;
 	}
 
-	async getExpenseMetrics(userId: string, month: string): Promise<any> {
-		const startDate = new Date(`${month}-01`);
+	async getExpenseMetrics(userId: string, date: string): Promise<any> {
+		const startDate = new Date(`${date}`);
 		const endDate = new Date(startDate);
 		endDate.setMonth(endDate.getMonth() + 1);
 
