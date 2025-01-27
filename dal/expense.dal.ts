@@ -113,7 +113,7 @@ export class ExpenseDal extends BaseDAL<Expense, ExpenseInstance> {
 		endDate.setMonth(endDate.getMonth() + 1);
 
 		const metrics = await this.Expense.findAll({
-			attributes: ["category", [sequelize.fn("COUNT", sequelize.col("category")), "count"]],
+			attributes: ["category", [sequelize.fn("SUM", sequelize.col("amount")), "total"]],
 			where: {
 				createdBy: userId,
 				createdAt: {
@@ -131,7 +131,7 @@ export class ExpenseDal extends BaseDAL<Expense, ExpenseInstance> {
 
 		metrics.forEach((metric: any) => {
 			const category = metric.category as ExpenseType;
-			expenseMetrics[category] = parseInt(metric.count, 10);
+			expenseMetrics[category] = parseFloat(metric.total)||0;
 		});
 
 		return expenseMetrics;
