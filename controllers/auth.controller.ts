@@ -100,7 +100,7 @@ export class AuthController {
 	public recoverPassword = async (req: _Request, res: Response) => {
 		const validation = z.object({
 			email: z.string().email("Email must be a valid email"),
-			otp: z.string().min(4).max(4),
+			otp: z.string().min(6).max(6),
 			newPassword: z.string().min(8),
 		});
 
